@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add New Book</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>➕ Add New Book</h1>
+
+    <form action="/add" method="POST">
+        
+        <label>Book Title</label>
+        <input type="text" name="title" placeholder="Enter book title" required>
+
+        <label>Author</label>
+        <input type="text" name="author" placeholder="Enter author name" required>
+
+        <label>Status</label>
+        <select name="status">
+            <option value="Available">Available</option>
+            <option value="Issued">Issued</option>
+        </select>
+
+        <button type="submit">Add Book</button>
+    </form>
+
+    <a href="/" class="back-btn">⬅ Back to Home</a>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Library Management System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='homestyle.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+<h1>📚 Library Management System</h1>
+
+<a class="btn" href="/add">Add New Book</a>
+<a class="btn" href="/students">Manage Students</a>
+<a class="btn" href="/logout">Logout</a>
+
+<div style="margin: 20px 0; display: flex; justify-content: flex-start;">
+    <form action="/" method="GET" style="display: flex; gap: 5px; align-items: center;">
+        <input type="text" name="search" placeholder="Search book..." 
+               value="{{ search_query if search_query else '' }}" 
+               style="padding: 6px 10px; width: 180px; border-radius: 4px; border: 1px solid #ccc; font-size: 14px;">
+        
+        <button type="submit" class="btn issue" style="cursor: pointer; padding: 6px 12px;">Search</button>
+        
+        {% if search_query %}
+            <a href="/" class="btn return" style="text-decoration: none; padding: 6px 12px;">Clear</a>
+        {% endif %}
+    </form>
+</div>
+
+{% if error_msg %}
+    <div style="color: #dc3545; background: #ffeef0; padding: 8px 12px; border-radius: 4px; margin-bottom: 10px; display: inline-block; font-size: 14px;">
+        {{ error_msg }}
+    </div>
+{% endif %}
+
+<div style="overflow-x: auto;">
+    <table class="book-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>TITLE</th>
+                <th>AUTHOR</th>
+                <th>STATUS</th>
+                <th>ISSUED TO</th>
+                <th>ACTIONS</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in books %}
+            <tr>
+                <td>{{ book[0] }}</td>
+                <td>{{ book[1] }}</td>
+                <td>{{ book[2] }}</td>
+                <td>{{ book[3] }}</td>
+                <td>{{ book[4] if book[4] else '-' }}</td>
+                <td class="actions">
+                    {% if book[3] == 'Available' %}
+                        <a href="/issue/{{ book[0] }}" class="btn issue">Issue</a>
+                    {% else %}
+                        <a href="/return/{{ book[0] }}" class="btn return">Return</a>
+                    {% endif %}
+                    <a href="/delete/{{ book[0] }}" class="btn delete" onclick="return confirm('Delete this book?')">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+</div>
+
+</body>
+</html>

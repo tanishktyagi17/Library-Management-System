@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Issue Book</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='homestyle.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <a href="/" class="corner-home-btn">🏠 Home</a>
+
+    <h2>Issue Book</h2>
+
+    <form method="POST">
+        <label>Student Name</label>
+        <input type="text" name="student" placeholder="Enter student name" required>
+
+        <label>Issue Date</label>
+        <input type="date" name="issue_date" required>
+
+        <label>Return Date</label>
+        <input type="date" name="return_date" required>
+
+        <button type="submit" class="btn">Issue Book</button>
+    </form>
+</div>
+
+</body>
+</html>
