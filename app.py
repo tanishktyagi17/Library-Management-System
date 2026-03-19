@@ -2,6 +2,11 @@ from flask import Flask, render_template, request, redirect, session
 import sqlite3
 
 app = Flask(__name__)
+app.debug = False
+
+# IMPORTANT for Vercel
+def handler(request, context):
+    return app(request.environ, start_response)
 app.secret_key = "secret123"   # change to anything secure
 
 def init_db():
