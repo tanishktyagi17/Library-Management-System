@@ -54,20 +54,24 @@ def init_db():
 # LOGIN PAGE
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+
     if 'user' in session:
         return redirect('/')
 
     if request.method == 'POST':
-        username = request.form['username']
+        username = request.form['username'].strip()
         password = request.form['password']
 
         if username == "admin" and password == "1234":
             session['user'] = username
             return redirect('/')
-        else:
-            return "❌ Invalid Credentials"
 
-    return render_template('login.html')
+        return render_template(
+            "login.html",
+            error="Invalid username or password."
+        )
+
+    return render_template("login.html")
 
 # LOGOUT ROUTE (FIXED)
 @app.route('/logout')
